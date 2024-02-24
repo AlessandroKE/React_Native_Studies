@@ -1,19 +1,28 @@
 // App.js
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Image } from 'react-native';
+import { Linking } from 'react-native';
 
-const logo = require('./assets/logo.png'); // Replace with your actual logo path
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+
+const logo = require('./assets/logo.png');
 
 const App = () => {
   const [email, setEmail] = useState('');
 
   const handleContinue = () => {
-    // Handle form submission here
-    console.log('Email:', email);
+    const url = 'https://github.com/Evecandy/saccoVote/tree/chore-android-app'; 
+  
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        console.log("Don't know how to open URI: " + url);
+      }
+    });
   };
-
+  
+  
   return (
-    <KeyboardAvoidingView behavior="padding" style={styles.container}>
     <View style={styles.container}>
       <Image source={logo} style={styles.logo} />
       <Text style={styles.title}>Vote</Text>
@@ -31,7 +40,6 @@ const App = () => {
 
       <Text style={styles.terms}>Terms and conditions apply.</Text>
     </View>
-     </KeyboardAvoidingView>
   );
 };
 
@@ -47,7 +55,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     resizeMode: 'contain',
-    marginTop: 60, // Add a top margin to push it down a bit
+    marginTop: 40, // Add a top margin to push it down a bit
     // Keep the logo styles the same as you requested
 
   },
@@ -96,5 +104,5 @@ const styles = StyleSheet.create({
   },
 });
 
-
+//This is what is displayed as the output
 export default App;
