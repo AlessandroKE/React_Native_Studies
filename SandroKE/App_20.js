@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 
 const App = () => {
-  const [name, setName] = useState(''); // State variable to store the entered name
+  const [name, setName] = useState('');
+  const [greeting, setGreeting] = useState(''); // State variable for the greeting message
 
   const handleChange = (text) => {
-    setName(text); // Update the name state when the input changes
+    setName(text);
+  };
+
+  const handlePress = () => {
+    setGreeting(`Hello, ${name}!`); // Update the greeting message state
   };
 
   return (
@@ -17,15 +22,24 @@ const App = () => {
         onChangeText={handleChange}
         placeholder="Type your name"
       />
-      <TouchableOpacity style={styles.button} onPress={() => console.log('Hello, ' + name + '!')}>
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Text style={styles.buttonText}>Greet Me</Text>
       </TouchableOpacity>
+
+     {/*  checking whether line of code is present or not */}
+      {greeting !== '' && <Text style={styles.greeting}>{greeting}</Text>} {/* Display the greeting message */}
+
       <Image source={require('./assets/logo_android.png')} style={styles.logo} /> 
     </View>
   );
 };
 
+
 const styles = StyleSheet.create({
+  greeting: {
+    fontSize: 18,
+    marginTop: 20,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
